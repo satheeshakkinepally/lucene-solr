@@ -17,6 +17,7 @@
 package org.apache.solr.search;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,10 +40,12 @@ import org.apache.lucene.util.Bits;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.FixedBitSet;
 import org.apache.solr.common.SolrException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @lucene.experimental */
 public class DocSetUtil {
-
+  private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   /** The cut-off point for small sets (SortedIntDocSet) vs large sets (BitDocSet) */
   public static int smallSetSize(int maxDoc) {
     return (maxDoc>>6)+5;  // The +5 is for better test coverage for small sets
@@ -118,7 +121,6 @@ public class DocSetUtil {
 
   // implementers of DocSetProducer should not call this with themselves or it will result in an infinite loop
   public static DocSet createDocSet(SolrIndexSearcher searcher, Query query, DocSet filter) throws IOException {
-
     if (filter != null) {
         Filter luceneFilter = filter.getTopFilter();
         query = new BooleanQuery.Builder()
@@ -128,10 +130,13 @@ public class DocSetUtil {
     }
 
     if (query instanceof TermQuery) {
+      log.info("***createDocSet called with query instance of TermQuery");
+
       DocSet set = createDocSet(searcher, ((TermQuery)query).getTerm() );
       // assert equals(set, createDocSetGeneric(searcher, query));
       return set;
     } else if (query instanceof DocSetProducer) {
+      log.info("***createDocSet called with query instance of DocSetProducer");
       DocSet set = ((DocSetProducer) query).createDocSet(searcher);
       // assert equals(set, createDocSetGeneric(searcher, query));
       return set;
@@ -157,8 +162,8 @@ public class DocSetUtil {
     DirectoryReader reader = searcher.getRawReader();  // raw reader to avoid extra wrapping overhead
     int maxDoc = searcher.getIndexReader().maxDoc();
     int smallSetSize = smallSetSize(maxDoc);
-
     String field = term.field();
+    log.info("***In createDocSet, smallSetSize is "+smallSetSize+" and term field "+field);
     BytesRef termVal = term.bytes();
 
     int maxCount = 0;

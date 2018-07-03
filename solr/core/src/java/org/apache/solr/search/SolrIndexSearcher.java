@@ -1192,6 +1192,7 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
 
   // query must be positive
   protected DocSet getDocSetNC(Query query, DocSet filter) throws IOException {
+    log.info("***getDocSetNC called");
     return DocSetUtil.createDocSet(this, query, filter);
   }
 
@@ -1206,6 +1207,7 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
    * @return DocSet meeting the specified criteria, should <b>not</b> be modified by the caller.
    */
   public DocSet getDocSet(Query query, DocSet filter) throws IOException {
+    log.info("***getDocSet called");
     if (filter == null) return getDocSet(query);
 
     if (query instanceof ExtendedQuery) {
@@ -1529,6 +1531,7 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
 
     if (null == cmd.getSort()) {
       assert null == cmd.getCursorMark() : "have cursor but no sort";
+      log.info("***buildTopDocsCollector called ");
       return TopScoreDocCollector.create(len);
     } else {
       // we have a sort
@@ -2020,6 +2023,7 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
     boolean inOrder = set instanceof BitDocSet || set instanceof SortedIntDocSet;
 
     TopDocsCollector topCollector = buildTopDocsCollector(nDocs, cmd);
+    log.info("***TopDocsCollector is "+topCollector);
 
     DocIterator iter = set.iterator();
     int base = 0;

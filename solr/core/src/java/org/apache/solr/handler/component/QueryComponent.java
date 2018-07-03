@@ -1431,7 +1431,7 @@ public class QueryComponent extends SearchComponent
     SolrQueryResponse rsp = rb.rsp;
 
     SolrIndexSearcher searcher = req.getSearcher();
-
+    LOG.info("***doProcessUngroupedSearch called");
     searcher.search(result, cmd);
     rb.setResult(result);
 
