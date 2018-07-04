@@ -1301,6 +1301,7 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
    * populated.
    */
   private void getDocListC(QueryResult qr, QueryCommand cmd) throws IOException {
+    log.info("***getDocListC called");
     DocListAndSet out = new DocListAndSet();
     qr.setDocListAndSet(out);
     QueryResultKey key = null;
@@ -1510,8 +1511,10 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
 
     if (null == cmd.getSort()) {
       assert null == cmd.getCursorMark() : "have cursor but no sort";
-      log.info("***buildTopDocsCollector called ");
-      return TopScoreDocCollector.create(len);
+      log.info("***buildTopDocsCollector called with cmd sort null");
+      TopDocsCollector ret =  TopScoreDocCollector.create(len);
+      log.info("And topDocs collector is "+ret,new Exception());
+      return ret;
     } else {
       // we have a sort
       final boolean needScores = (cmd.getFlags() & GET_SCORES) != 0;
@@ -1522,7 +1525,10 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
       // ... see comments in populateNextCursorMarkFromTopDocs for cache issues (SOLR-5595)
       final boolean fillFields = (null != cursor);
       final FieldDoc searchAfter = (null != cursor ? cursor.getSearchAfterFieldDoc() : null);
-      return TopFieldCollector.create(weightedSort, len, searchAfter, fillFields, needScores, needScores, true);
+      log.info("***buildTopDocsCollector called with cmd sort NOT null");
+      TopDocsCollector ret =  TopFieldCollector.create(weightedSort, len, searchAfter, fillFields, needScores, needScores, true);
+      log.info("And topDocs collector is "+ret,new Exception());
+      return ret;
     }
   }
 
