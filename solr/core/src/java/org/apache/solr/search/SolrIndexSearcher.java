@@ -210,8 +210,8 @@ public class SolrIndexSearcher extends IndexSearcher implements Closeable, SolrI
       postFilter.setLastDelegate(collector);
       collector = postFilter;
     }
-
     try {
+      log.info("***In buildAndRunCollectorChain, collector is "+collector +" and postFilter:"+postFilter+" ,calling lucene search now with collector");
       super.search(query, collector);
     } catch (TimeLimitingCollector.TimeExceededException | ExitableDirectoryReader.ExitingReaderException x) {
       log.warn("Query: [{}]; {}", query, x.getMessage());

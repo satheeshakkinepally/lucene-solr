@@ -459,6 +459,7 @@ public class IndexSearcher {
    */
   public void search(Query query, Collector results)
     throws IOException {
+    System.out.println("***IndexSearcher invoking search on leaf contexts..");
     search(leafContexts, createNormalizedWeight(query, results.needsScores()), results);
   }
 
@@ -655,6 +656,7 @@ public class IndexSearcher {
         continue;
       }
       BulkScorer scorer = weight.bulkScorer(ctx);
+      System.out.println("***Bulk scorer is "+scorer);
       if (scorer != null) {
         try {
           scorer.score(leafCollector, ctx.reader().getLiveDocs());
