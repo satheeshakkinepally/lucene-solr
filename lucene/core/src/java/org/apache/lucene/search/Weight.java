@@ -179,8 +179,10 @@ public abstract class Weight implements SegmentCacheable {
 
     @Override
     public int score(LeafCollector collector, Bits acceptDocs, int min, int max) throws IOException {
+      System.out.println("***scorer in DefaultBulkScorer is "+scorer);
       collector.setScorer(scorer);
       if (scorer.docID() == -1 && min == 0 && max == DocIdSetIterator.NO_MORE_DOCS) {
+        System.out.println("***calling scoreAll");
         scoreAll(collector, iterator, twoPhase, acceptDocs);
         return DocIdSetIterator.NO_MORE_DOCS;
       } else {
@@ -192,6 +194,7 @@ public abstract class Weight implements SegmentCacheable {
             doc = twoPhase.approximation().advance(min);
           }
         }
+        System.out.println("***calling scoreRange");
         return scoreRange(collector, iterator, twoPhase, acceptDocs, doc, max);
       }
     }
