@@ -271,6 +271,7 @@ public class FacetComponent extends SearchComponent {
       }
 
       NamedList<Object> counts = FacetComponent.getFacetCounts(f, fdebug);
+      log.info("***facet counts:"+counts);
       String[] pivots = params.getParams(FacetParams.FACET_PIVOT);
       if (!ArrayUtils.isEmpty(pivots)) {
         PivotFacetProcessor pivotProcessor 

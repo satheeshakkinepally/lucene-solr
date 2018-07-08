@@ -483,7 +483,7 @@ public class SimpleFacets {
     FacetMethod appliedFacetMethod = selectFacetMethod(field,
                                 sf, requestedMethod, mincount,
                                 exists);
-
+    LOG.info("***FacetMethod chosen:"+appliedFacetMethod);
     RTimer timer = null;
     if (fdebug != null) {
        fdebug.putInfoItem("requestedMethod", requestedMethod==null?"not specified":requestedMethod.name());
@@ -494,6 +494,7 @@ public class SimpleFacets {
     }
 
     if (params.getFieldBool(field, GroupParams.GROUP_FACET, false)) {
+      LOG.info("***getting grouped counts as GROUP FACET is asked for");
       counts = getGroupedCounts(searcher, docs, field, multiToken, offset,limit, mincount, missing, sort, prefix, termFilter);
     } else {
       assert appliedFacetMethod != null;
@@ -831,6 +832,8 @@ public class SimpleFacets {
               List<String> terms = StrUtils.splitSmart(termList, ",", true);
               result.add(key, getListedTermCounts(facetValue, parsed, terms));
             } else {
+              LOG.info("***getFacetFieldCounts method.. calling getTermCounts with parsedParams facetField:"+f+" ,facetValue:"+facetValue);
+
               result.add(key, getTermCounts(facetValue, parsed));
             }
             return result;
