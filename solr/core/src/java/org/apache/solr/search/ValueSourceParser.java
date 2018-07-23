@@ -313,7 +313,9 @@ public abstract class ValueSourceParser implements NamedListInitializedPlugin {
       // boost(query($q),rating)
       @Override
       public ValueSource parse(FunctionQParser fp) throws SyntaxError {
+        System.out.println("***parse called for query..");
         Query q = fp.parseNestedQuery();
+        System.out.println("***query q is .."+q);
         float defVal = 0.0f;
         if (fp.hasMoreArguments()) {
           defVal = fp.parseFloat();
@@ -981,6 +983,8 @@ public abstract class ValueSourceParser implements NamedListInitializedPlugin {
     addParser("agg_avg", new ValueSourceParser() {
       @Override
       public ValueSource parse(FunctionQParser fp) throws SyntaxError {
+        System.out.println("***parse called for agg_avg..");
+
         return new AvgAgg(fp.parseValueSource());
       }
     });
