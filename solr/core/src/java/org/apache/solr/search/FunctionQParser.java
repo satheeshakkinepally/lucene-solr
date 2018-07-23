@@ -361,8 +361,8 @@ public class FunctionQParser extends QParser {
        ***/
 
     } else {
-      System.out.println("***in else in parseValueSource method");
       String id = sp.getId();
+      System.out.println("***in else in parseValueSource method and id is "+id);
       if (sp.opt("(")) {
         // a function... look it up.
         ValueSourceParser argParser = req.getCore().getValueSourceParser(id);
