@@ -248,6 +248,7 @@ public abstract class SolrQueryParserBase extends QueryBuilder {
     *  @param query  the query string to be parsed.
     */
   public Query parse(String query) throws SyntaxError {
+    System.out.println("***parse query called on SolrQueryParserBase and query is "+query);
     ReInit(new FastCharStream(new StringReader(query)));
     try {
       // TopLevelQuery is a Query followed by the end-of-input (EOF)
@@ -976,11 +977,14 @@ public abstract class SolrQueryParserBase extends QueryBuilder {
 
 
   private void checkNullField(String field) throws SolrException {
+/*
     if (field == null && defaultField == null) {
       throw new SolrException
           (SolrException.ErrorCode.BAD_REQUEST,
               "no field name specified in query and no default specified via 'df' param");
     }
+*/
+    System.out.println("***disabling checkNullField for field: "+field);
   }
 
   protected String analyzeIfMultitermTermText(String field, String part, FieldType fieldType) {

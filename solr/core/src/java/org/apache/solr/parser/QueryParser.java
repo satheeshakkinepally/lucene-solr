@@ -240,6 +240,7 @@ public class QueryParser extends SolrQueryParserBase implements QueryParserConst
   }
 
   final public Query Clause(String field) throws ParseException, SyntaxError {
+    System.out.println("***clause for field "+field +" in "+this.getClass().getName());
   Query q;
   Token fieldToken=null, boost=null;
   Token localParams=null;
