@@ -365,14 +365,18 @@ public class FunctionQParser extends QParser {
       System.out.println("***in else in parseValueSource method and id is "+id);
       if (sp.opt("(")) {
         // a function... look it up.
+        System.out.println("***sp.opt... getting valueSourcearser from req.getCore ");
         ValueSourceParser argParser = req.getCore().getValueSourceParser(id);
+        System.out.println("***and argParser is  "+argParser);
         if (argParser==null) {
           throw new SyntaxError("Unknown function " + id + " in FunctionQuery(" + sp + ")");
         }
         valueSource = argParser.parse(this);
+        System.out.println("***and value source is  "+valueSource);
         sp.expect(")");
       }
       else {
+        System.out.println("***in else else .. sp.opt and id is "+id);
         if ("true".equals(id)) {
           valueSource = new BoolConstValueSource(true);
         } else if ("false".equals(id)) {
