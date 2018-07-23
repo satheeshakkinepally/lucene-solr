@@ -349,7 +349,9 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
     System.out.println("***parseFacetOrStat called on key:"+key+ " and value:"+o);
 
     if (o instanceof String) {
-      return parseStringFacetOrStat(key, (String)o);
+      Object retVal =  parseStringFacetOrStat(key, (String)o);
+      System.out.println("retVal:"+retVal);
+      return retVal;
     }
 
     if (!(o instanceof Map)) {
@@ -432,6 +434,7 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
     FunctionQParser parser = (FunctionQParser)QParser.getParser(stat, FunctionQParserPlugin.NAME, getSolrRequest());
     System.out.println("***retrieved FunctionQParser "+parser +" for paseAgg");
     AggValueSource agg = parser.parseAgg(FunctionQParser.FLAG_DEFAULT);
+    System.out.println("***and agg is "+agg);
     return agg;
   }
 
