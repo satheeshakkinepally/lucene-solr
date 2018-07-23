@@ -412,16 +412,20 @@ public class FunctionQParser extends QParser {
       }
 
       hasParen = sp.opt("(");
-
+      System.out.println("***getting argParser (ValueSourceParser)");
       ValueSourceParser argParser = req.getCore().getValueSourceParser(id);
       argParser = req.getCore().getValueSourceParser(id);
+      System.out.println("***argParser is "+argParser);
       if (argParser == null) {
+        System.out.println("*****throwing SyntaxError...");
         throw new SyntaxError("Unknown aggregation " + id + " in (" + sp + ")");
       }
 
       ValueSource vv = argParser.parse(this);
+      System.out.println("***ValueSource is "+vv);
       if (!(vv instanceof AggValueSource)) {
         if (argParser == null) {
+          System.out.println("*****throwing SyntaxError 2..");
           throw new SyntaxError("Expected aggregation from " + id + " but got (" + vv + ") in (" + sp + ")");
         }
       }
