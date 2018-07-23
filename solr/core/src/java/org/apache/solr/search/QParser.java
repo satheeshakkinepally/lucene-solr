@@ -165,6 +165,7 @@ public abstract class QParser {
    */
   //TODO never return null; standardize the semantics
   public Query getQuery() throws SyntaxError {
+    System.out.println("In QParser, query:"+query);
     if (query==null) {
       query=parse();
 

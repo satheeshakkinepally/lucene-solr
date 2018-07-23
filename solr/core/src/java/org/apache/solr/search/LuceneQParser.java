@@ -36,9 +36,11 @@ public class LuceneQParser extends QParser {
   @Override
   public Query parse() throws SyntaxError {
     String qstr = getString();
+    System.out.println("LuceneQParser qstring:"+qstr);
     if (qstr == null || qstr.length()==0) return null;
 
     String defaultField = getParam(CommonParams.DF);
+    System.out.println("LuceneQParser defaultField:"+defaultField);
     lparser = new SolrQueryParser(this, defaultField);
 
     lparser.setDefaultOperator(QueryParsing.parseOP(getParam(QueryParsing.OP)));
