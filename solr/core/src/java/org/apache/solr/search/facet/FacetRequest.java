@@ -386,7 +386,9 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
     // TODO: a place to register all these facet types?
     System.out.println("***parseFacetOrStat "+key+" and type:"+type+" and args:"+args);
     if ("field".equals(type) || "terms".equals(type)) {
-      return parseFieldFacet(key, args);
+      Object retval =  parseFieldFacet(key, args);
+      System.out.println("for "+type+", ***retval :"+retval);
+      return retval;
     } else if ("query".equals(type)) {
       return parseQueryFacet(key, args);
     } else if ("range".equals(type)) {
@@ -426,7 +428,9 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
 
   // parses avg(x)
   private AggValueSource parseStringStat(String key, String stat) throws SyntaxError {
+    System.out.println("***parseStringStat called for "+key+" and stat:"+stat);
     FunctionQParser parser = (FunctionQParser)QParser.getParser(stat, FunctionQParserPlugin.NAME, getSolrRequest());
+    System.out.println("***retrieved FunctionQParser "+parser +" for paseAgg");
     AggValueSource agg = parser.parseAgg(FunctionQParser.FLAG_DEFAULT);
     return agg;
   }
