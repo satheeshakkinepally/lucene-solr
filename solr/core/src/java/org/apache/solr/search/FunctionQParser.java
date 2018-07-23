@@ -247,6 +247,7 @@ public class FunctionQParser extends QParser {
       String param = sp.getId();
       String qstr = getParam(param);
       qstr = qstr==null ? "" : qstr;
+      System.out.println("***In If FunctionQParser ...param:"+param+" ,"+qstr);
       nestedQuery = subQuery(qstr, null).getQuery();
     }
     else {
@@ -254,6 +255,7 @@ public class FunctionQParser extends QParser {
       String v = sp.val;
   
       String qs = v;
+      System.out.println("***In else FunctionQParser ...v:"+v);
       ModifiableSolrParams nestedLocalParams = new ModifiableSolrParams();
       int end = QueryParsing.parseLocalParams(qs, start, nestedLocalParams, getParams());
   
@@ -279,7 +281,7 @@ public class FunctionQParser extends QParser {
       nestedQuery = sub.getQuery();
     }
     consumeArgumentDelimiter();
-    
+    System.out.println("***returning nested query:"+nestedQuery);
     return nestedQuery;
   }
 
