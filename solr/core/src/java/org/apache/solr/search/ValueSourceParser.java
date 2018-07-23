@@ -984,8 +984,9 @@ public abstract class ValueSourceParser implements NamedListInitializedPlugin {
       @Override
       public ValueSource parse(FunctionQParser fp) throws SyntaxError {
         System.out.println("***parse called for agg_avg..");
-
-        return new AvgAgg(fp.parseValueSource());
+        ValueSource vs = fp.parseValueSource();
+        System.out.println("***value source : "+vs);
+        return new AvgAgg(vs);
       }
     });
 
