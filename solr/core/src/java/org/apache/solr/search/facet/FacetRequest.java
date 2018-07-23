@@ -349,8 +349,9 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
     System.out.println("***parseFacetOrStat called on key:"+key+ " and value:"+o);
 
     if (o instanceof String) {
+      System.out.println("***:"+o+" is instance of string and so calling parseStringFacetOrStat");
       Object retVal =  parseStringFacetOrStat(key, (String)o);
-      System.out.println("retVal:"+retVal);
+      System.out.println("***retVal:"+retVal);
       return retVal;
     }
 

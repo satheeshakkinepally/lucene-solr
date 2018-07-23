@@ -398,6 +398,7 @@ public class FunctionQParser extends QParser {
   /** @lucene.experimental */
   public AggValueSource parseAgg(int flags) throws SyntaxError {
     String id = sp.getId();
+    System.out.println("***id in FunctionQParser parseAgg function : "+id);
     AggValueSource vs = null;
     boolean hasParen = false;
 
@@ -434,6 +435,7 @@ public class FunctionQParser extends QParser {
     if ((flags & FLAG_CONSUME_DELIMITER) != 0) {
       consumeArgumentDelimiter();
     }
+    System.out.println("***parseAgg function returning : "+vs);
 
     return vs;
   }
