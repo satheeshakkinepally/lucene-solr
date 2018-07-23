@@ -294,7 +294,7 @@ public class FunctionQParser extends QParser {
 
    protected ValueSource parseValueSource(int flags) throws SyntaxError {
     ValueSource valueSource;
-    
+     System.out.println("***parseValueSource called in FunctionQParser");
     int ch = sp.peek();
     if (ch>='0' && ch<='9'  || ch=='.' || ch=='+' || ch=='-') {
       Number num = sp.getNumber();
@@ -311,7 +311,9 @@ public class FunctionQParser extends QParser {
     } else if (ch == '$') {
       sp.pos++;
       String param = sp.getId();
+      System.out.println("param:"+param);
       String val = getParam(param);
+      System.out.println("gotParam:"+val);
       if (val == null) {
         throw new SyntaxError("Missing param " + param + " while parsing function '" + sp.val + "'");
       }
@@ -359,7 +361,7 @@ public class FunctionQParser extends QParser {
        ***/
 
     } else {
-
+      System.out.println("***in else in parseValueSource method");
       String id = sp.getId();
       if (sp.opt("(")) {
         // a function... look it up.
