@@ -40,6 +40,8 @@ import org.apache.solr.search.SyntaxError;
 import org.apache.solr.util.RTimer;
 import org.noggit.JSONUtil;
 import org.noggit.ObjectBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FacetModule extends SearchComponent {
 
@@ -55,7 +57,7 @@ public class FacetModule extends SearchComponent {
   // Internal information passed down from the top level to shards for distributed faceting.
   private final static String FACET_INFO = "_facet_";
   private final static String FACET_REFINE = "refine";
-
+  static final Logger log = LoggerFactory.getLogger(FacetModule.class);
 
   public FacetComponentState getFacetComponentState(ResponseBuilder rb) {
     // TODO: put a map on ResponseBuilder?
@@ -99,6 +101,7 @@ public class FacetModule extends SearchComponent {
     FacetParser parser = new FacetTopParser(rb.req);
     FacetRequest facetRequest = null;
     try {
+      log.info("***json facet:"+jsonFacet);
       facetRequest = parser.parse(jsonFacet);
     } catch (SyntaxError syntaxError) {
       throw new SolrException(SolrException.ErrorCode.BAD_REQUEST, syntaxError);

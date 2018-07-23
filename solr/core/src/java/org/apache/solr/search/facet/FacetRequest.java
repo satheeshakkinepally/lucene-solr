@@ -328,7 +328,6 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
 
         // "my_prices" : { "range" : { "field":...
         // key="my_prices", value={"range":..
-
         Object parsedValue = parseFacetOrStat(key, value);
 
         // TODO: have parseFacetOrStat directly add instead of return?
@@ -347,6 +346,7 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
   }
 
   public Object parseFacetOrStat(String key, Object o) throws SyntaxError {
+    System.out.println("***parseFacetOrStat called on key:"+key+ " and value:"+o);
 
     if (o instanceof String) {
       return parseStringFacetOrStat(key, (String)o);
@@ -384,7 +384,7 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
 
   public Object parseFacetOrStat(String key, String type, Object args) throws SyntaxError {
     // TODO: a place to register all these facet types?
-
+    System.out.println("***parseFacetOrStat "+key+" and type:"+type+" and args:"+args);
     if ("field".equals(type) || "terms".equals(type)) {
       return parseFieldFacet(key, args);
     } else if ("query".equals(type)) {
@@ -392,6 +392,7 @@ abstract class FacetParser<FacetRequestT extends FacetRequest> {
     } else if ("range".equals(type)) {
       return parseRangeFacet(key, args);
     }
+    System.out.println("***asking for  AggValueSource");
 
     AggValueSource stat = parseStat(key, type, args);
     if (stat == null) {
