@@ -248,7 +248,10 @@ public class FunctionQParser extends QParser {
       String qstr = getParam(param);
       qstr = qstr==null ? "" : qstr;
       System.out.println("***In If FunctionQParser ...param:"+param+" ,"+qstr);
-      nestedQuery = subQuery(qstr, null).getQuery();
+      QParser qParser = subQuery(qstr, null);
+      System.out.println("***In If FunctionQParser ...qParser:"+qParser);
+      nestedQuery = qParser.getQuery();
+      System.out.println("***In If FunctionQParser ...param:"+param+" ,"+qstr+" and nestedQuery:"+nestedQuery);
     }
     else {
       int start = sp.pos;
