@@ -978,9 +978,12 @@ public abstract class SolrQueryParserBase extends QueryBuilder {
 
   private void checkNullField(String field) throws SolrException {
     if (field == null && defaultField == null) {
+      System.out.println("*** null check fail field:"+field + "");
       throw new SolrException
           (SolrException.ErrorCode.BAD_REQUEST,
               "no field name specified in query and no default specified via 'df' param");
+    }else{
+      System.out.println("*** null check passed field:"+field + "");
     }
 
 //    System.out.println("***disabling checkNullField for field: "+field);
