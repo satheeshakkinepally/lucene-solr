@@ -159,6 +159,7 @@ public class QueryParser extends SolrQueryParserBase implements QueryParserConst
       case FILTER:
       case NUMBER:
         mods = Modifiers();
+        System.out.println("***NUMBER.."+NUMBER+" in query parser and field:"+field);
         q = Clause(field);
         addClause(clauses, CONJ_NONE, mods, q);
         break;
@@ -276,6 +277,7 @@ public class QueryParser extends SolrQueryParserBase implements QueryParserConst
     case RANGEIN_START:
     case RANGEEX_START:
     case NUMBER:
+      System.out.println("***case NUMBER here and q = Term(field) for field "+field);
       q = Term(field);
       break;
     case LPAREN:
