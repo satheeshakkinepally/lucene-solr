@@ -151,7 +151,9 @@ public class DatePointField extends PointField implements DateValueFieldType {
     if (val != null) {
       return new Date(val.longValue());
     } else {
-      throw new AssertionError("Unexpected state. Field: '" + f + "'");
+      //throw new AssertionError("Unexpected state. Field: '" + f + "'");
+      
+      return new Date();
     }
   }
 
