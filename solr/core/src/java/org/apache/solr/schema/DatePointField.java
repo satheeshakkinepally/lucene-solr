@@ -152,8 +152,9 @@ public class DatePointField extends PointField implements DateValueFieldType {
       return new Date(val.longValue());
     } else {
       //throw new AssertionError("Unexpected state. Field: '" + f + "'");
-      
-      return new Date();
+      System.out.println("****ERROR in toObject at "+this.getClass().getName()+" returning null");
+      //return new Date();
+      return null;
     }
   }
 
